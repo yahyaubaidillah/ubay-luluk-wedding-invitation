@@ -19,6 +19,8 @@ interface OpeningProps {
 
 onOpen:()=>void
 
+guestName:string
+
 }
 
 
@@ -27,7 +29,8 @@ onOpen:()=>void
 
 export default function Opening({
 
-onOpen
+onOpen,
+guestName
 
 }:OpeningProps){
 
@@ -513,7 +516,7 @@ y:0
 
 transition={{
 
-delay:1,
+delay:1.3,
 
 duration:1
 
@@ -569,7 +572,7 @@ opacity:1
 
 transition={{
 
-delay:1.5
+delay:2
 
 }}
 
@@ -626,7 +629,7 @@ y:0
 
 transition={{
 
-delay:1.8,
+delay:2.3,
 
 duration:1
 
@@ -656,7 +659,87 @@ Luluk
 
 
 
+<motion.div
 
+initial={{
+opacity:0,
+y:20
+}}
+
+animate={{
+opacity:1,
+y:0
+}}
+
+transition={{
+delay:3.2,
+duration:1
+}}
+
+className="
+mt-8
+flex
+justify-center
+"
+
+>
+  <div
+    className="
+    relative
+    inline-block
+    px-8
+    py-5
+    rounded-[28px]
+    border
+    border-[#e8d9b5]/40
+    bg-white/10
+    backdrop-blur-md
+    shadow-[0_8px_30px_rgba(0,0,0,0.18)]
+    "
+  >
+    {/* Ornamen sudut / frame klasik */}
+    <span className="absolute top-2 left-2 h-4 w-4 border-t border-l border-white/50 rounded-tl-md" />
+    <span className="absolute top-2 right-2 h-4 w-4 border-t border-r border-white/50 rounded-tr-md" />
+    <span className="absolute bottom-2 left-2 h-4 w-4 border-b border-l border-white/50 rounded-bl-md" />
+    <span className="absolute bottom-2 right-2 h-4 w-4 border-b border-r border-white/50 rounded-br-md" />
+
+    <p
+      className="
+      text-[11px]
+      md:text-xs
+      tracking-[0.35em]
+      uppercase
+      text-white/80
+      "
+    >
+      Kepada Yth.
+    </p>
+
+    <p
+    className="
+    mt-2
+    text-sm
+    md:text-base
+    text-white/75
+    "
+    >
+    Bapak/Ibu/Saudara/i
+    </p>
+
+    <p
+    className="
+    mt-2
+    font-serif
+    text-xl
+    md:text-2xl
+    text-white
+    leading-relaxed
+    "
+    >
+    {guestName}
+    </p>
+  </div>
+</motion.div>
 
 
 
@@ -690,7 +773,7 @@ scale:1
 
 transition={{
 
-delay:2.5,
+delay:4.2,
 
 duration:.8
 
@@ -735,7 +818,7 @@ px-10
 
 py-4
 
-bg-white/10
+bg-[#fffaf0]/10
 
 backdrop-blur-md
 
