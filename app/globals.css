@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --cream:#F8F5EF;
+  --gold:#B59B5A;
+  --olive:#64654A;
+  --dark:#1F1F1F;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+.animate-show{
+
+opacity:1;
+transform:translateY(0);
+
+}
+
+
+.reveal-section{
+
+opacity:0;
+transform:translateY(40px);
+transition:all 1s ease;
+
+}
+
+
+.reveal-section.show{
+
+opacity:1;
+transform:translateY(0);
+
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+
+body {
+
+margin:0;
+
+padding:0;
+
+overflow-x:hidden;
+
+}
+
+
+* {
+
+box-sizing:border-box;
+
+}
+
+/* =====================================
+   GLOBAL MOBILE OPTIMIZATION
+   Wedding Invitation
+===================================== */
+
+/* Prevent horizontal overflow */
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+
+/* Base body */
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+
+/* Better box calculation */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+
+/* Prevent image overflow */
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+
+/* Improve mobile tap experience */
+button,
+a,
+input,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+/* Prevent text overflow */
+h1,
+h2,
+h3,
+p {
+  overflow-wrap: break-word;
+}
