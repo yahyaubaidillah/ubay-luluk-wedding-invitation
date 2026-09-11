@@ -1,5 +1,8 @@
 import WeddingPage from "@/components/WeddingPage"
 
+import { supabase } from "@/lib/supabase"
+
+
 
 export default async function GuestPage({
 
@@ -17,10 +20,46 @@ guest:string
 const {guest}=await params
 
 
-const guestName =
-guest.charAt(0).toUpperCase()
-+
-guest.slice(1)
+
+const {data,error}=await supabase
+
+.from("guests")
+
+.select("name")
+
+.eq("slug",guest)
+
+.single()
+
+
+
+if(error || !data){
+
+
+return (
+
+<div
+
+className="
+min-h-screen
+flex
+items-center
+justify-center
+"
+
+>
+
+<h1>
+
+Undangan tidak ditemukan
+
+</h1>
+
+</div>
+
+)
+
+}
 
 
 
@@ -28,7 +67,7 @@ return (
 
 <WeddingPage
 
-guestName={guestName}
+guestName={data.name}
 
 />
 
