@@ -1,76 +1,94 @@
-import WeddingPage from "@/components/WeddingPage"
-
 import { supabase } from "@/lib/supabase"
 
+import WeddingPage from "@/components/WeddingPage"
 
 
-export default async function GuestPage({
+interface GuestPageProps {
 
-params
-
-}:{
-
-params:Promise<{
-guest:string
-}>
-
-}){
-
-
-const {guest}=await params
-
-
-
-const {data,error}=await supabase
-
-.from("guests")
-
-.select("name")
-
-.eq("slug",guest)
-
-.single()
-
-
-
-if(error || !data){
-
-
-return (
-
-<div
-
-className="
-min-h-screen
-flex
-items-center
-justify-center
-"
-
->
-
-<h1>
-
-Undangan tidak ditemukan
-
-</h1>
-
-</div>
-
-)
+  params: Promise<{
+    guest: string
+  }>
 
 }
 
 
 
-return (
+export default async function GuestPage({
 
-<WeddingPage
+  params
 
-guestName={data.name}
+}: GuestPageProps){
 
-/>
 
-)
+  const { guest } = await params
+
+
+
+  const { data, error } = await supabase
+
+    .from("guests")
+
+    .select("*")
+
+    .eq("slug", guest)
+
+    .single()
+
+
+
+  if(error || !data){
+
+
+    return (
+
+      <main
+
+      className="
+      min-h-screen
+      flex
+      items-center
+      justify-center
+      "
+
+      >
+
+        <h1
+
+        className="
+        text-xl
+        font-serif
+        "
+
+        >
+
+          Undangan tidak ditemukan
+
+        </h1>
+
+
+      </main>
+
+    )
+
+  }
+
+
+
+
+  return (
+
+    <WeddingPage
+
+
+      guestName={data.name}
+
+
+      guestId={data.id}
+
+
+    />
+
+  )
+
 
 }

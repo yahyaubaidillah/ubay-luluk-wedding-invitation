@@ -21,12 +21,15 @@ interface WeddingPageProps {
 
 guestName:string
 
+guestId:string
+
 }
 
 
 export default function WeddingPage({
 
-guestName
+guestName,
+guestId
 
 }:WeddingPageProps){
 
