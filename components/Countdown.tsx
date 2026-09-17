@@ -6,7 +6,7 @@ import {useEffect,useState} from "react"
 export default function Countdown(){
 
 const target =
-new Date("December 12, 2026 08:00:00").getTime()
+new Date("October 02, 2026 10:00:00").getTime()
 
 
 const [time,setTime]=useState({

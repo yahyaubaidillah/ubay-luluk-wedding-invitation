@@ -48,7 +48,7 @@ export const wedding = {
 
 groom:{
 name:"Ubay",
-fullname:"M. Yahya Ubaidillah",
+fullname:"M. Yahya Ubaidillah,S.Kom,M.Kom",
 parents:
 "Putra dari Bapak Salamet & Raudatul Jannah",
 photo:"/images/ubay.jpg"
@@ -57,7 +57,7 @@ photo:"/images/ubay.jpg"
 
 bride:{
 name:"Luluk",
-fullname:"Khofifah Mamluatur Riskiyah",
+fullname:"Khofifah Mamluatur Riskiyah,S.M",
 parents:
 "Putri dari Bapak Akh. Hidayat MZ & Ibu Sitti Juhairiyah",
 photo:"/images/luluk.jpg"
@@ -107,13 +107,13 @@ events:[
 {
 type:"Akad",
 date:"02 Oktober 2026",
-time:"08.00 WIB",
+time:"10.00 WIB",
 location:
 "Rumah Mempelai Wanita",
 address:
-"jjdjsds",
+"Aengbaja Kenek, Bluto, Sumenep",
 maps:
-"https://maps.google.com"
+"https://maps.app.goo.gl/3RG8457SNvW9fDgS7"
 }
 
 
@@ -152,16 +152,16 @@ gift:[
 {
 bank:"Bank Mandiri",
 logo:"/images/bank/mandiri.png",
-name:"Ubay",
-account:"1234567890"
+name:"M YAHYA UBAIDILLAH",
+account:"1410021825419"
 },
 
 
 {
 bank:"Bank Mandiri",
 logo:"/images/bank/mandiri.png",
-name:"Luluk",
-account:"0987654321"
+name:"KHOFIFAH MAMLUATUR RISKIYAH",
+account:"1400020879285"
 }
 
 ]

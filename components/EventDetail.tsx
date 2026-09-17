@@ -35,7 +35,7 @@ id="event"
 
 className="
 min-h-screen
-py-32
+py-20
 bg-[#faf8f5]
 "
 

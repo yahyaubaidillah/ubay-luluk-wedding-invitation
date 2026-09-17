@@ -1,151 +1,193 @@
 "use client"
 
-import { useState } from "react"
-import { supabase } from "@/lib/supabase"
+import {
+  useState,
+  useEffect
+} from "react"
+
+import {
+  supabase
+} from "@/lib/supabase"
+
+import Toast from "./Toast"
 
 
-export default function RSVP(){
 
-const [honeypot,setHoneypot]=useState("")
+interface RSVPProps {
+
+  guestId:string
+
+}
 
 
-const [form,setForm] = useState({
 
-    name:"",
-    attendance:"Hadir",
-    guests:1,
-    message:""
+interface GuestInfo {
+
+  attendance:string | null
+
+  guests:number | null
+
+  message:string | null
+
+
+  guest?: {
+
+    name:string
+
+  }[]
+
+}
+
+
+
+
+
+export default function RSVP({
+
+guestId
+
+}:RSVPProps){
+
+
+
+const [loading,setLoading]=useState(false)
+
+
+const [alreadyRSVP,setAlreadyRSVP]=useState(false)
+
+
+
+const [guestInfo,setGuestInfo]=useState<GuestInfo | null>(null)
+
+
+
+const [showToast,setShowToast]=useState(false)
+
+
+
+const [form,setForm]=useState({
+
+attendance:"Hadir",
+
+guests:1,
+
+message:""
 
 })
 
 
-const [loading,setLoading] = useState(false)
+
+const [honeypot,setHoneypot]=useState("")
 
 
 
-async function submitRSVP(){
-
-
-    if(loading)
-    return
-
-    if(!form.name){
-
-        alert("Nama wajib diisi")
-        return
-
-    }
-
-    if(form.name.trim().length < 3){
-
-    alert(
-    "Nama minimal 3 karakter"
-    )
-
-    return
-
-    }
-
-
-    if(form.name.length > 50){
-
-    alert(
-    "Nama terlalu panjang"
-    )
-
-    return
-
-    }
-
-
-    if(form.message.length > 300){
-
-    alert(
-    "Ucapan maksimal 300 karakter"
-    )
-
-    return
-
-    }
-
-
-    setLoading(true)
 
 
 
-    // cek session user
-    // const session = await supabase.auth.getSession()
 
-    // console.log(
-    //     "CURRENT SESSION:",
-    //     session.data.session
-    // )
+function showSuccessToast(){
 
-    if(honeypot){
 
-    return
+setShowToast(true)
 
-    }
 
-    // insert RSVP
+setTimeout(()=>{
 
-    
-    const result = await supabase
-    .from("rsvps")
-    .insert({
+setShowToast(false)
 
-        name:form.name,
-        attendance:form.attendance,
-        guests:form.guests,
-        message:form.message
+},3000)
 
-    })
-    .select()
+
+}
 
 
 
-    console.log(
-        "INSERT RESULT:",
-        result
-    )
 
 
 
-    setLoading(false)
+
+
+async function checkExistingRSVP(){
 
 
 
-    if(result.error){
+const {
+
+data,
+
+error
+
+}=await supabase
 
 
-        console.log(
-            "SUPABASE INSERT ERROR:",
-            result.error
-        )
+.from("rsvps")
 
 
-        alert(result.error.message)
+.select(`
 
-        return
+attendance,
 
-    }
+guests,
+
+message,
+
+guest:guests(
+
+name
+
+)
+
+`)
+
+
+.eq(
+
+"guest_id",
+
+guestId
+
+)
+
+
+.maybeSingle()
 
 
 
-    alert(
-        "Terima kasih, RSVP berhasil dikirim"
-    )
+
+
+console.log(
+
+"CHECK RSVP:",
+
+data
+
+)
 
 
 
-    setForm({
 
-        name:"",
-        attendance:"Hadir",
-        guests:1,
-        message:""
 
-    })
+if(error){
+
+console.log(error)
+
+return
+
+}
+
+
+
+
+if(data){
+
+
+setAlreadyRSVP(true)
+
+
+setGuestInfo(data as GuestInfo)
+
+
+}
 
 
 
@@ -153,7 +195,230 @@ async function submitRSVP(){
 
 
 
+
+
+
+
+useEffect(()=>{
+
+
+
+const init=async()=>{
+
+await checkExistingRSVP()
+
+}
+
+
+
+init()
+
+
+
+},[guestId])
+
+
+
+
+
+
+
+
+
+async function submitRSVP(){
+
+
+
+if(loading)
+
+return
+
+
+
+
+
+if(honeypot)
+
+return
+
+
+
+
+
+if(form.message.length > 300){
+
+
+showSuccessToast()
+
+
+return
+
+}
+
+
+
+
+
+
+
+const {
+
+data:existing
+
+}=await supabase
+
+
+.from("rsvps")
+
+
+.select("id")
+
+
+.eq(
+
+"guest_id",
+
+guestId
+
+)
+
+
+.maybeSingle()
+
+
+
+
+
+
+
+if(existing){
+
+
+setAlreadyRSVP(true)
+
+
+showSuccessToast()
+
+
+return
+
+}
+
+
+
+
+
+
+
+setLoading(true)
+
+
+
+
+
+
+
+const {
+
+error
+
+}=await supabase
+
+
+.from("rsvps")
+
+
+.insert({
+
+
+guest_id:guestId,
+
+
+attendance:form.attendance,
+
+
+guests:form.guests,
+
+
+message:form.message
+
+
+})
+
+
+
+
+
+
+
+
+
+setLoading(false)
+
+
+
+
+
+
+
+if(error){
+
+
+console.log(error)
+
+
+return
+
+}
+
+
+
+
+
+
+
+showSuccessToast()
+
+
+setAlreadyRSVP(true)
+
+
+
+await checkExistingRSVP()
+
+
+
+}
+
+
+
+
+
+
+
+
+
 return(
+
+
+<>
+
+
+<Toast
+
+show={showToast}
+
+title="Terima Kasih"
+
+message="Konfirmasi kehadiran berhasil dikirim."
+
+/>
+
+
+
+
+
+
 
 
 <section
@@ -163,7 +428,7 @@ id="rsvp"
 className="
 min-h-screen
 py-32
-bg-[#faf8f5]
+bg-[#f8f5ef]
 "
 
 >
@@ -178,6 +443,9 @@ px-6
 "
 
 >
+
+
+
 
 
 <h2
@@ -197,6 +465,17 @@ RSVP
 
 
 
+
+
+
+
+
+{
+
+!alreadyRSVP && (
+
+
+
 <div
 
 className="
@@ -208,32 +487,30 @@ space-y-5
 
 
 
+
+
 <input
 
-className="
-w-full
-border
-rounded-xl
-p-4
-"
+className="hidden"
 
-placeholder="Nama"
-
-value={form.name}
+value={honeypot}
 
 onChange={(e)=>
 
-setForm({
+setHoneypot(
 
-...form,
+e.target.value
 
-name:e.target.value
-
-})
+)
 
 }
 
 />
+
+
+
+
+
 
 
 
@@ -248,6 +525,8 @@ p-4
 "
 
 value={form.attendance}
+
+
 
 onChange={(e)=>
 
@@ -264,11 +543,14 @@ attendance:e.target.value
 >
 
 
+
 <option value="Hadir">
 
 Hadir
 
 </option>
+
+
 
 
 <option value="Tidak Hadir">
@@ -278,7 +560,13 @@ Tidak Hadir
 </option>
 
 
+
+
 </select>
+
+
+
+
 
 
 
@@ -286,9 +574,12 @@ Tidak Hadir
 
 <input
 
+
 type="number"
 
+
 min="1"
+
 
 className="
 w-full
@@ -297,7 +588,10 @@ rounded-xl
 p-4
 "
 
+
 value={form.guests}
+
+
 
 onChange={(e)=>
 
@@ -305,11 +599,17 @@ setForm({
 
 ...form,
 
-guests:Number(e.target.value)
+guests:Number(
+
+e.target.value
+
+)
 
 })
 
 }
+
+
 
 />
 
@@ -317,7 +617,12 @@ guests:Number(e.target.value)
 
 
 
+
+
+
+
 <textarea
+
 
 className="
 w-full
@@ -326,9 +631,13 @@ rounded-xl
 p-4
 "
 
+
 placeholder="Ucapan"
 
+
 value={form.message}
+
+
 
 onChange={(e)=>
 
@@ -342,7 +651,13 @@ message:e.target.value
 
 }
 
+
+
 />
+
+
+
+
 
 
 
@@ -350,9 +665,13 @@ message:e.target.value
 
 <button
 
+
 onClick={submitRSVP}
 
+
 disabled={loading}
+
+
 
 className="
 w-full
@@ -364,6 +683,8 @@ disabled:opacity-50
 "
 
 >
+
+
 
 {
 
@@ -380,20 +701,247 @@ loading
 }
 
 
+
 </button>
 
 
 
 
+
+
+
 </div>
 
 
+
+)
+
+}
+
+
+
+
+
+
+
+
+
+{
+
+alreadyRSVP && (
+
+
+
+
+
+<div
+
+className="
+mt-10
+bg-[#fffdf8]
+border
+border-[#d8c8ad]
+rounded-2xl
+shadow-lg
+p-8
+text-center
+"
+
+>
+
+
+
+
+
+<div
+
+className="
+text-5xl
+"
+
+>
+
+✓
+
 </div>
+
+
+
+
+
+
+
+<h3
+
+className="
+font-serif
+text-3xl
+mt-4
+"
+
+>
+
+Konfirmasi Berhasil
+
+</h3>
+
+
+
+
+
+
+
+
+<p
+
+className="
+mt-5
+text-gray-500
+"
+
+>
+
+{
+
+guestInfo?.guest?.[0]?.name
+
+||
+
+"Tamu Undangan"
+
+}
+
+</p>
+
+
+
+
+
+
+
+
+
+<p
+
+className="
+mt-6
+text-gray-600
+"
+
+>
+
+Status
+
+<br/>
+
+<b>
+
+{
+
+guestInfo?.attendance
+
+}
+
+</b>
+
+</p>
+
+
+
+
+
+
+
+
+
+<p
+
+className="
+mt-4
+text-gray-600
+"
+
+>
+
+Jumlah Tamu
+
+<br/>
+
+<b>
+
+{
+
+guestInfo?.guests
+
+}
+
+Orang
+
+</b>
+
+</p>
+
+
+
+
+
+
+
+
+
+<p
+
+className="
+mt-6
+italic
+text-gray-500
+"
+
+>
+
+Terima kasih telah memberikan konfirmasi kehadiran.
+
+</p>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+)
+
+}
+
+
+
+
+
+
+
+</div>
+
+
+
+
 
 
 </section>
 
 
+
+
+
+</>
+
+
 )
+
 
 }

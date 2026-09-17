@@ -109,7 +109,7 @@ text-center
 
 src={wedding.groom.photo}
 
-alt={wedding.groom.name}
+alt={wedding.groom.fullname}
 
 className="
 w-64
@@ -136,7 +136,7 @@ font-serif
 
 >
 
-{wedding.groom.name}
+{wedding.groom.fullname}
 
 </h3>
 
@@ -192,7 +192,7 @@ text-center
 
 src={wedding.bride.photo}
 
-alt={wedding.bride.name}
+alt={wedding.bride.fullname}
 
 className="
 w-64
@@ -219,7 +219,7 @@ font-serif
 
 >
 
-{wedding.bride.name}
+{wedding.bride.fullname}
 
 </h3>
 

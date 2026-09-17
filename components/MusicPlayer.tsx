@@ -245,7 +245,7 @@ text-sm
 
 Elvis Presley -
 
-Can't Help Falling in Love
+Can&apos;t Help Falling in Love
 
 
 </motion.div>

@@ -1,6 +1,8 @@
 "use client"
 
+
 import {useState} from "react"
+
 
 import Opening from "@/components/Opening"
 import Hero from "@/components/Hero"
@@ -15,39 +17,57 @@ import RSVP from "@/components/RSVP"
 import Wishes from "@/components/Wishes"
 import ImageProtection from "@/components/ImageProtection"
 import MusicPlayer from "@/components/MusicPlayer"
+import WeddingFooter from "./WeddingFooter"
 
 
 interface WeddingPageProps {
 
-guestName:string
+    guestName:string
 
-guestId:string
+    guestId:string
 
 }
 
 
+
+
+
 export default function WeddingPage({
 
-guestName,
-guestId
+    guestName,
+
+    guestId
 
 }:WeddingPageProps){
+
 
 
 const [opened,setOpened]=useState(false)
 
 
-return (
+
+
+
+return(
+
 
 <main>
 
+
 <ImageProtection/>
+
 
 <SmoothScroll/>
 
 
+
+
+
 {
+
 !opened &&
+
+(
 
 <Opening
 
@@ -57,45 +77,90 @@ onOpen={()=>setOpened(true)}
 
 />
 
+)
+
 }
 
 
+
+
+
 {
+
 opened &&
+
+(
+
 
 <>
 
+
 <MusicPlayer play={opened}/>
+
+
 
 <Navbar/>
 
+
+
+
 <Hero/>
+
+
+
 
 <Couple/>
 
+
+
+
 <OurStory/>
+
+
+
 
 <EventDetail/>
 
+
+
+
 <Gallery/>
+
+
+
 
 <Gift/>
 
+
+
+
+
 <RSVP
 
-guestName={guestName}
+guestId={guestId}
 
 />
+
+
+
+
 
 <Wishes/>
 
 
+<WeddingFooter />
+
 </>
+
+
+)
 
 }
 
 
+
 </main>
+
 
 )
 
