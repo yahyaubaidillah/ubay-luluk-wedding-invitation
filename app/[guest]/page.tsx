@@ -114,11 +114,9 @@ description:
 
 
 images:[
-
 {
-
 url:
-"/images/wedding-cover.jpg",
+"/images/og-wedding.png",
 
 width:1200,
 
@@ -128,7 +126,6 @@ alt:
 "Ubay & Luluk Wedding Invitation"
 
 }
-
 ],
 
 
@@ -160,7 +157,7 @@ title:
 
 images:[
 
-"/images/wedding-cover.jpg"
+"/images/og-wedding.png"
 
 ]
 
