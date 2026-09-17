@@ -171,7 +171,9 @@ robots:{
 
 index:false,
 
-follow:false
+follow:false,
+
+nocache:true
 
 
 }
