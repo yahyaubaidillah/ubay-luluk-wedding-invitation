@@ -27,7 +27,7 @@ const sans = Inter({
 
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://domain-anda.com"),
+  metadataBase: new URL("https://ubay-luluk-wedding-invitation.vercel.app"),
 
   title: {
     default: "Ubay & Luluk Wedding Invitation",
@@ -65,18 +65,18 @@ export const metadata: Metadata = {
       "With love and happiness, we invite you to celebrate our wedding day.",
 
     url:
-      "https://domain-anda.com",
+      "https://ubay-luluk-wedding-invitation.vercel.app",
 
     siteName:
       "Ubay & Luluk Wedding",
 
     images:[
-      {
-        url:"/images/wedding-cover.jpg",
-        width:1200,
-        height:630,
-        alt:"Ubay & Luluk Wedding Invitation"
-      }
+    {
+    url:"/images/og-wedding.png",
+    width:1200,
+    height:630,
+    alt:"Ubay & Luluk Wedding Invitation"
+    }
     ],
 
     locale:"id_ID",
@@ -84,10 +84,12 @@ export const metadata: Metadata = {
   },
 
   twitter:{
-    card:"summary_large_image",
-    title:"Ubay & Luluk Wedding Invitation",
-    description:"02 Oktober 2026",
-    images:["/images/wedding-cover.jpg"]
+  card:"summary_large_image",
+  title:"Ubay & Luluk Wedding Invitation",
+  description:"02 Oktober 2026",
+  images:[
+    "/images/og-wedding.png"
+    ]
   },
 
   icons:{
