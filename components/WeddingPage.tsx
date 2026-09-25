@@ -12,12 +12,13 @@ import Couple from "@/components/Couple"
 import OurStory from "@/components/OurStory"
 import EventDetail from "@/components/EventDetail"
 import Gallery from "@/components/Gallery"
-import Gift from "@/components/Gift"
+// import Gift from "@/components/Gift"
 import RSVP from "@/components/RSVP"
 import Wishes from "@/components/Wishes"
 import ImageProtection from "@/components/ImageProtection"
 import MusicPlayer from "@/components/MusicPlayer"
 import WeddingFooter from "./WeddingFooter"
+import Hadith from "./Hadith"
 
 
 interface WeddingPageProps {
@@ -129,7 +130,7 @@ opened &&
 
 
 
-<Gift/>
+{/* <Gift/> */}
 
 
 
@@ -147,6 +148,7 @@ guestId={guestId}
 
 <Wishes/>
 
+<Hadith />
 
 <WeddingFooter />
 
